@@ -1,10 +1,10 @@
-import { Link } from "react-router";
+import { Link } from 'react-router';
 import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
-} from "@ui/navigation-menu";
+} from '@ui/navigation-menu';
 
 export default function Navbar() {
   return (

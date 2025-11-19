@@ -6,9 +6,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
 import type { Route } from "./+types/root";
-import "./app.css";
+import Header from "@components/Header/Header";
+
+import "@styles/app.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -29,7 +30,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <Header />
+      <main className="container mx-auto py-6 flex-1">
+        <Outlet />
+      </main>
+    </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

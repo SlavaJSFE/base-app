@@ -1,0 +1,44 @@
+name: Deploy application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: prod
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESlint
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm run test
+
+      - name: Build Application
+        run: npm run build -- --configuration=staging
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Deploy to AWS S3
+        run: |
+          aws s3 sync dist/legend-craft-frontend s3://base-app-dummy-sales --region eu-central-1

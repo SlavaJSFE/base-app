@@ -1,0 +1,10 @@
+echo "Running npm run test:coverage before push..."
+npm run test:coverage
+status=$?
+
+if [ $status -ne 0 ]; then
+  echo "npm run test:coverage failed. Aborting push."
+  exit $status
+fi
+
+exit 0

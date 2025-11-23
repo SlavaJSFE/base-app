@@ -2,7 +2,6 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContaine
 
 import { Card, CardHeader, CardTitle, CardContent } from '@ui/card';
 import type { SalesRecord } from '@src/features/sales/types/SalesRecord';
-// import { useEffect } from 'react';
 
 interface ChannelNameChartProps {
   data: SalesRecord[];
@@ -29,10 +28,6 @@ export function ChannelNameChart({ data }: ChannelNameChartProps) {
   );
 
   aggregated.sort((a: AgregatedData, b: AgregatedData) => b.sales - a.sales);
-
-  //   useEffect(() => {
-  //     aggregated.sort((a: AgregatedData, b: AgregatedData) => b.sales - a.sales);
-  //   }, [aggregated]);
 
   return (
     <Card className="w-full">

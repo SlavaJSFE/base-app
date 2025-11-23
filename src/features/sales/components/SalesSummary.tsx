@@ -18,7 +18,12 @@ export function SalesSummary({ data }: Props) {
   );
 
   const uniqueChannelTypes = new Set(data.map((record) => record.channel_type)).size;
-  const uniqueChannelNames = new Set(data.map((record) => record.channel_name));
+  const uniqueChannelNames = Array.from(
+    new Set(data.map((record) => record.channel_name?.trim() || 'Unknown')),
+  );
+  const channelNamesMiddle = Math.ceil(uniqueChannelNames.length / 2);
+  const channelNamesLeftColumn = uniqueChannelNames.slice(0, channelNamesMiddle);
+  const channelNamesRightColumn = uniqueChannelNames.slice(channelNamesMiddle);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -61,7 +66,24 @@ export function SalesSummary({ data }: Props) {
         <CardHeader>
           <CardTitle>Channels</CardTitle>
         </CardHeader>
-        <CardContent className="text-2xl font-bold">{uniqueChannelNames}</CardContent>
+        <CardContent className="">
+          <div className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-3 text-sm">
+            <ol className="list-decimal list-inside space-y-1">
+              {channelNamesLeftColumn.map((name, index) => (
+                <li key={index} className="wrap-break-word">
+                  {name}
+                </li>
+              ))}
+            </ol>
+            <ol className="list-decimal list-inside space-y-1" start={channelNamesMiddle + 1}>
+              {channelNamesRightColumn.map((name, index) => (
+                <li key={index} className="wrap-break-word">
+                  {name}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </CardContent>
       </Card>
     </div>
   );

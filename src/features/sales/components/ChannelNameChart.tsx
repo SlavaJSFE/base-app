@@ -13,6 +13,8 @@ export type AgregatedData = {
 };
 
 export function ChannelNameChart({ data }: ChannelNameChartProps) {
+  if (!data || data.length === 0) return null;
+
   const aggregated = Object.values(
     data.reduce<Record<string, AgregatedData>>((acc, item) => {
       const key = item.channel_name?.trim() || 'Unknown';

@@ -1,4 +1,6 @@
-export async function fetchSales() {
+import type { SalesRecord } from '../features/sales/types/SalesRecord';
+
+export async function fetchSales(): Promise<SalesRecord[]> {
   try {
     const response = await fetch('/dummy-sales.json');
     const data = await response.json();

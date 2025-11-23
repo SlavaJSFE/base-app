@@ -13,6 +13,8 @@ export type AgregatedData = {
 };
 
 export default function ChannelTypeChart({ data }: ChannelTypeChartProps) {
+  if (!data || data.length === 0) return null;
+
   const aggregated = Object.values(
     data.reduce<Record<string, AgregatedData>>((acc, item) => {
       const key = item.channel_type || 'Unknown';

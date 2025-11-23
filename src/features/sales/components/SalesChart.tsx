@@ -15,6 +15,8 @@ export type SalesChartProps = {
 };
 
 export function SalesChart({ data }: SalesChartProps) {
+  if (!data || data.length === 0) return null;
+
   const chartData = data.map((item) => ({
     date: item.date,
     sales: item.sum_sales,

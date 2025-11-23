@@ -21,6 +21,8 @@ interface SalesTableProps {
 const columnHelper = createColumnHelper<SalesRecord>();
 
 export function SalesTable({ data }: SalesTableProps) {
+  if (!data || data.length === 0) return null;
+
   const columns = [
     columnHelper.accessor('date', {
       header: 'Date',

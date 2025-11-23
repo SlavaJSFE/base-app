@@ -1,6 +1,6 @@
 import type { Route } from '../+types/root';
 import { SalesSummary } from '@src/features/sales/components/SalesSummary';
-import { fetchSales } from '@src/features/sales/api/fetchSales';
+import { fetchSales } from '@src/api/fetchSales';
 import { SalesChart } from '@src/features/sales/components/SalesChart';
 import { SalesTable } from '@src/features/sales/components/SalesTable';
 import ChannelTypeChart from '@src/features/sales/components/ChannelTypeChart';
@@ -17,13 +17,17 @@ export default function DashboardPage({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="space-y-8">
-      <SalesSummary data={salesData} />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <ChannelTypeChart data={salesData || []} />
-        <ChannelNameChart data={salesData || []} />
-      </div>
-      <SalesChart data={salesData || []} />
-      <SalesTable data={salesData || []} />
+      {salesData && (
+        <>
+          <SalesSummary data={salesData} />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <ChannelTypeChart data={salesData} />
+            <ChannelNameChart data={salesData} />
+          </div>
+          <SalesChart data={salesData} />
+          <SalesTable data={salesData} />
+        </>
+      )}
     </div>
   );
 }

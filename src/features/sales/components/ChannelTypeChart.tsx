@@ -35,7 +35,7 @@ export default function ChannelTypeChart({ data }: ChannelTypeChartProps) {
       <CardContent className="h-80">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
-            <Pie data={aggregated} dataKey="sales" nameKey="channel_type" outerRadius="100%">
+            <Pie data={aggregated} dataKey="sales" nameKey="channel_type" outerRadius="90%">
               {aggregated.map((_, index) => (
                 <Cell key={index} fill={COLORS[index % COLORS.length]} />
               ))}

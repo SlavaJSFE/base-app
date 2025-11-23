@@ -33,7 +33,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <Header />
-      <main className="container mx-auto px-10 py-6 flex-1">
+      <main className="container mx-auto px-5 md:px-10 py-6 flex-1">
         <Outlet />
       </main>
     </div>

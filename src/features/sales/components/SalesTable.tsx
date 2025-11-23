@@ -68,9 +68,10 @@ export function SalesTable({ data }: SalesTableProps) {
     () =>
       data.map((record) => ({
         ...record,
+        channel_name: record.channel_name || '—',
         dateValue: new Date(record.date).getTime(),
       })),
-    [],
+    [data],
   );
 
   const table = useReactTable({

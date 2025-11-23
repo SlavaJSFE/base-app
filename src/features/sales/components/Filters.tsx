@@ -9,7 +9,7 @@ export type FiltersProps = {
 
 export default function Filters({ table, data }: FiltersProps) {
   return (
-    <div className="flex items-end gap-4 mb-4">
+    <div className="flex flex-wrap items-end gap-4 mb-4">
       <div className="flex flex-col">
         <label className="text-sm mb-1">Date from</label>
         <input
@@ -56,9 +56,10 @@ export default function Filters({ table, data }: FiltersProps) {
         </SelectContent>
       </Select>
       <Select
-        onValueChange={(value) =>
-          table.getColumn('channel_name')?.setFilterValue(value === 'all' ? '' : value)
-        }
+        onValueChange={(value) => {
+          console.log('value', value);
+          return table.getColumn('channel_name')?.setFilterValue(value === 'all' ? '' : value);
+        }}
       >
         <SelectTrigger className="w-48">
           <SelectValue placeholder="Channel name" />
@@ -76,8 +77,8 @@ export default function Filters({ table, data }: FiltersProps) {
         <label className="text-sm mb-1">Min sales</label>
         <input
           type="number"
-          step="0.01"
-          className="border rounded px-2 py-1"
+          min={0}
+          className="border rounded px-2 py-1 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           onChange={(event) => {
             const min = event.target.value ? Number(event.target.value) : undefined;
             const existing = table.getColumn('sum_sales')?.getFilterValue() as
@@ -91,8 +92,7 @@ export default function Filters({ table, data }: FiltersProps) {
         <label className="text-sm mb-1">Max sales</label>
         <input
           type="number"
-          step="0.01"
-          className="border rounded px-2 py-1"
+          className="border rounded px-2 py-1 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           onChange={(event) => {
             const max = event.target.value ? Number(event.target.value) : undefined;
             const existing = table.getColumn('sum_sales')?.getFilterValue() as

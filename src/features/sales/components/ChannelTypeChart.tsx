@@ -1,6 +1,7 @@
 import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer, Legend } from 'recharts';
 import { Card, CardHeader, CardTitle, CardContent } from '@ui/card';
 import type { SalesRecord } from '../types/SalesRecord';
+import { COLORS } from '@src/constants/common';
 
 export type ChannelTypeChartProps = {
   data: SalesRecord[];
@@ -24,8 +25,6 @@ export default function ChannelTypeChart({ data }: ChannelTypeChartProps) {
       return acc;
     }, {}),
   );
-
-  const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#6366f1'];
 
   return (
     <Card className="w-full">

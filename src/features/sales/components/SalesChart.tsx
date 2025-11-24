@@ -9,6 +9,7 @@ import {
 } from 'recharts';
 import { Card, CardHeader, CardTitle, CardContent } from '@ui/card';
 import { type SalesRecord } from '../types/SalesRecord';
+import { useMemo } from 'react';
 
 export type SalesChartProps = {
   data: SalesRecord[];
@@ -17,11 +18,15 @@ export type SalesChartProps = {
 export function SalesChart({ data }: SalesChartProps) {
   if (!data || data.length === 0) return null;
 
-  const chartData = data.map((item) => ({
-    date: item.date,
-    sales: item.sum_sales,
-    orders: item.count_orders,
-  }));
+  const chartData = useMemo(
+    () =>
+      data.map((item) => ({
+        date: item.date,
+        sales: item.sum_sales,
+        orders: item.count_orders,
+      })),
+    [data],
+  );
 
   return (
     <Card className="w-full">

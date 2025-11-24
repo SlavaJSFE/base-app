@@ -33,7 +33,6 @@ export function SalesSummary({ data }: SalesSummaryProps) {
   );
 
   const avgOrderValue = totalOrders > 0 ? totalSales / totalOrders : 0;
-
   const uniqueChannelTypes = new Set(data.map((record) => record.channel_type)).size;
   const uniqueChannelNames = Array.from(
     new Set(data.map((record) => record.channel_name?.trim() || 'Unknown')),

@@ -1,7 +1,7 @@
 import type { Table } from '@tanstack/react-table';
 import { Button } from '@ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ui/select';
-import type { SalesRecord } from '@src/features/sales/types/SalesRecord';
+import type { SalesRecord } from '@src/features/sales/types/sales';
 
 export type PaginationProps = {
   table: Table<SalesRecord>;

@@ -1,23 +1,15 @@
-import { useMemo } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ui/select';
-import type { SalesRecord } from '../types/SalesRecord';
+import type { SalesRecord } from '../types/sales';
 import type { Table } from '@tanstack/react-table';
+import { normalizeName } from '@src/lib/normalizeName';
 
 export type FiltersProps = {
   table: Table<SalesRecord>;
-  data: SalesRecord[];
+  channelTypes: string[];
+  channelNames: string[];
 };
 
-export default function Filters({ table, data }: FiltersProps) {
-  const uniqueChannelTypes = useMemo(
-    () => Array.from(new Set(data.map((record) => record.channel_type))),
-    [data],
-  );
-  const uniqueChannelNames = useMemo(
-    () => Array.from(new Set(data.map((record) => record.channel_name?.trim()))),
-    [data],
-  );
-
+export default function Filters({ table, channelTypes, channelNames }: FiltersProps) {
   return (
     <div className="flex flex-wrap items-end gap-4 mb-4">
       <div className="flex flex-col">
@@ -58,7 +50,7 @@ export default function Filters({ table, data }: FiltersProps) {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All</SelectItem>
-          {uniqueChannelTypes.map((type) => (
+          {channelTypes.map((type) => (
             <SelectItem key={type} value={type}>
               {type || '—'}
             </SelectItem>
@@ -75,11 +67,15 @@ export default function Filters({ table, data }: FiltersProps) {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All</SelectItem>
-          {uniqueChannelNames.map((name) => (
-            <SelectItem key={name || '—'} value={name || '—'}>
-              {name || '—'}
-            </SelectItem>
-          ))}
+          {channelNames.map((name) => {
+            const itemName = normalizeName(name);
+
+            return (
+              <SelectItem key={itemName} value={itemName}>
+                {itemName}
+              </SelectItem>
+            );
+          })}
         </SelectContent>
       </Select>
       <div className="flex flex-col">

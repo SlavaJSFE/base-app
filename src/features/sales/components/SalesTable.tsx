@@ -10,19 +10,19 @@ import {
 } from '@tanstack/react-table';
 
 import { Card, CardHeader, CardTitle, CardContent } from '@ui/card';
-import type { SalesRecord } from '../types/SalesRecord';
+import type { SalesRecord } from '../types/sales';
 import Filters from './Filters';
 import Pagination from '@components/Pagination/Pagination';
 
 interface SalesTableProps {
   data: SalesRecord[];
+  channelTypes: string[];
+  channelNames: string[];
 }
 
 const columnHelper = createColumnHelper<SalesRecord>();
 
-export function SalesTable({ data }: SalesTableProps) {
-  if (!data || data.length === 0) return null;
-
+export function SalesTable({ data, channelTypes, channelNames }: SalesTableProps) {
   const columns = [
     columnHelper.accessor('date', {
       header: 'Date',
@@ -100,7 +100,7 @@ export function SalesTable({ data }: SalesTableProps) {
         <CardTitle>Sales Result List</CardTitle>
       </CardHeader>
       <CardContent>
-        <Filters table={table} data={data} />
+        <Filters table={table} channelTypes={channelTypes} channelNames={channelNames} />
         <table className="w-full text-sm border-collapse">
           <thead className="border-b">
             {table.getHeaderGroups().map((headerGroup) => (

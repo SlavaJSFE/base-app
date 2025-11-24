@@ -1,35 +1,16 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 import { Card, CardHeader, CardTitle, CardContent } from '@ui/card';
-import type { SalesRecord } from '@src/features/sales/types/SalesRecord';
+import type { ChannelNameSalesRecord } from '@src/features/sales/types/sales';
 
 interface ChannelNameChartProps {
-  data: SalesRecord[];
+  data: ChannelNameSalesRecord[];
 }
 
-export type AgregatedData = {
-  channel_name: string;
-  sales: number;
-};
-
 export function ChannelNameChart({ data }: ChannelNameChartProps) {
-  if (!data || data.length === 0) return null;
-
-  const aggregated = Object.values(
-    data.reduce<Record<string, AgregatedData>>((acc, item) => {
-      const key = item.channel_name?.trim() || 'Unknown';
-
-      if (!acc[key]) {
-        acc[key] = { channel_name: key, sales: 0 };
-      }
-
-      acc[key].sales += item.sum_sales;
-
-      return acc;
-    }, {}),
+  const sortedData = [...data].sort(
+    (a: ChannelNameSalesRecord, b: ChannelNameSalesRecord) => b.sales - a.sales,
   );
-
-  aggregated.sort((a: AgregatedData, b: AgregatedData) => b.sales - a.sales);
 
   return (
     <Card className="w-full">
@@ -38,7 +19,7 @@ export function ChannelNameChart({ data }: ChannelNameChartProps) {
       </CardHeader>
       <CardContent className="h-96">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={aggregated} responsive>
+          <BarChart data={sortedData} responsive>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="channel_name"

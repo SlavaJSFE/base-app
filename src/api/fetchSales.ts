@@ -1,4 +1,4 @@
-import type { SalesRecord } from '../features/sales/types/SalesRecord';
+import type { SalesRecord } from '../features/sales/types/sales';
 
 export async function fetchSales(): Promise<SalesRecord[]> {
   try {

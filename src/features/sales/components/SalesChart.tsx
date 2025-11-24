@@ -6,41 +6,68 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  Legend,
 } from 'recharts';
+
 import { Card, CardHeader, CardTitle, CardContent } from '@ui/card';
-import { type SalesRecord } from '../types/SalesRecord';
 import { useMemo } from 'react';
+import type { SalesRecord } from '../types/sales';
+import { COLORS } from '@src/constants/common';
 
 export type SalesChartProps = {
   data: SalesRecord[];
+  channelNames: string[];
 };
 
-export function SalesChart({ data }: SalesChartProps) {
-  if (!data || data.length === 0) return null;
+export type GroupedData = {
+  date: string;
+  [channelName: string]: number | string;
+};
 
-  const chartData = useMemo(
-    () =>
-      data.map((item) => ({
-        date: item.date,
-        sales: item.sum_sales,
-        orders: item.count_orders,
-      })),
-    [data],
-  );
+export function SalesChart({ data, channelNames }: SalesChartProps) {
+  const chartData = useMemo(() => {
+    const grouped: Record<string, GroupedData> = {};
+
+    data.forEach((item) => {
+      const date = item.date;
+      const channel = item.channel_name?.trim() || 'Unknown';
+
+      if (!grouped[date]) {
+        grouped[date] = { date } as GroupedData;
+      }
+
+      grouped[date][channel] =
+        ((grouped[date][channel] as number | undefined) || 0) + item.sum_sales;
+    });
+
+    return Object.values(grouped).sort(
+      (a: GroupedData, b: GroupedData) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
+  }, [data]);
 
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Daily sales</CardTitle>
+        <CardTitle>Daily Sales by Channel</CardTitle>
       </CardHeader>
-      <CardContent className="h-72">
+      <CardContent className="h-96">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="sales" stroke="var(--chart-1)" strokeWidth={2} />
+            <Legend />
+            {channelNames.map((channel, index) => (
+              <Line
+                key={channel}
+                type="monotone"
+                dataKey={channel}
+                stroke={COLORS[index % COLORS.length]}
+                strokeWidth={2}
+                dot={false}
+              />
+            ))}
           </LineChart>
         </ResponsiveContainer>
       </CardContent>

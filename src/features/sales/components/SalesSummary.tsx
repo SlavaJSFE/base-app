@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
-import { type SalesRecord } from '../types/SalesRecord';
+import { type SalesRecord } from '../types/sales';
 import SummaryCard from '@src/components/SummaryCard/SummaryCard';
 import { splitArray } from '@src/lib/splitArray';
 
 export type SalesSummaryProps = {
-  data: SalesRecord[] | undefined;
+  data: SalesRecord[];
+  channelTypes: string[];
+  channelNames: string[];
 };
 
-export function SalesSummary({ data }: SalesSummaryProps) {
-  if (!data || data.length === 0) return null;
-
+export function SalesSummary({ data, channelNames, channelTypes }: SalesSummaryProps) {
   const { totalSales, totalOrders, bestDay } = useMemo(
     () =>
       data.reduce(
@@ -33,11 +33,7 @@ export function SalesSummary({ data }: SalesSummaryProps) {
   );
 
   const avgOrderValue = totalOrders > 0 ? totalSales / totalOrders : 0;
-  const uniqueChannelTypes = new Set(data.map((record) => record.channel_type)).size;
-  const uniqueChannelNames = Array.from(
-    new Set(data.map((record) => record.channel_name?.trim() || 'Unknown')),
-  );
-  const { columnLength, columns } = splitArray(uniqueChannelNames, 2);
+  const { columnLength, columns } = splitArray(channelNames, 2);
   const commonContentStyles = 'text-2xl font-bold';
 
   const summary = [
@@ -69,7 +65,7 @@ export function SalesSummary({ data }: SalesSummaryProps) {
     },
     {
       title: 'Channel Types',
-      content: uniqueChannelTypes.toLocaleString(),
+      content: channelTypes.length.toLocaleString(),
       contentClasses: commonContentStyles,
     },
     {

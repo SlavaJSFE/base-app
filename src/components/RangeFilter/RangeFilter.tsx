@@ -26,8 +26,8 @@ export function RangeFilter<Type>({
 
   return (
     <div className="flex gap-4">
-      <div className="flex flex-col">
-        <label className="text-sm mb-1">{labelFrom}</label>
+      <label className="flex flex-col">
+        <span className="text-sm mb-1">{labelFrom}</span>
         <input
           type={type}
           min={type === 'number' ? (min ?? 0) : undefined}
@@ -42,9 +42,9 @@ export function RangeFilter<Type>({
             column?.setFilterValue([from, existing?.[1]]);
           }}
         />
-      </div>
-      <div className="flex flex-col">
-        <label className="text-sm mb-1">{labelTo}</label>
+      </label>
+      <label className="flex flex-col">
+        <span className="text-sm mb-1">{labelTo}</span>
         <input
           type={type}
           className={cn(
@@ -58,7 +58,7 @@ export function RangeFilter<Type>({
             column?.setFilterValue([existing?.[0], to]);
           }}
         />
-      </div>
+      </label>
     </div>
   );
 }

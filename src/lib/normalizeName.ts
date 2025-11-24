@@ -1,3 +1,3 @@
 export function normalizeName(name: string): string {
-  return name === 'Unknown' ? '—' : name;
+  return name.toLowerCase() === 'unknown' ? '—' : name;
 }

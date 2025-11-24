@@ -17,6 +17,18 @@ A demo application built with **React Router v7** and a modern frontend stack, s
 - **ESLint** + **Prettier** — linting and code formatting.
 - **Husky** — Git hooks for automated checks.
 
+## 📋 Prerequisites
+
+- Node.js **v22**  
+  The project includes an `.nvmrc` file, so you can simply run:
+
+  ```bash
+  nvm use
+  ```
+  to automatically switch to the correct Node.js version.  
+  If you are not using nvm, just make sure to install Node.js v22 manually in order to run the project.  
+  npm (comes with Node.js)
+
 ## 📦 Installation
 
 ```bash
@@ -40,6 +52,7 @@ After starting the dev server, the app will be available at: http://localhost:30
 ```
 
 ## 🧪 Testing
+
 ```bash
 # Run tests
 npm run test
@@ -50,7 +63,9 @@ npm run test:dev
 # Check coverage
 npm run test:coverage
 ```
+
 ## 🛠️ Additional Commands
+
 ```bash
 # Type checking
 npm run typecheck
@@ -69,4 +84,5 @@ npm run prettier:fix
 ```
 
 ## 📖 About the Project
+
 This application demonstrates how to work with e‑commerce sales data and visualize it using charts and tables. The goal is to show how a modern stack — React + Router + Tailwind + Recharts — can be used to quickly build interactive dashboards and analytics tools.

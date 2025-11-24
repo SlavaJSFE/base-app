@@ -1,7 +1,7 @@
 import type { SalesRecord } from '../types/sales';
 import type { Table } from '@tanstack/react-table';
 import NameFilter from '@components/NameFilter/NameFilter';
-import { RangeFilter } from '@src/components/RangeFilter/RangeFilter';
+import RangeFilter from '@src/components/RangeFilter/RangeFilter';
 
 export type FiltersProps = {
   table: Table<SalesRecord>;

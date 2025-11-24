@@ -12,7 +12,7 @@ type RangeFilterProps<Type> = {
   hideArrows?: boolean;
 };
 
-export function RangeFilter<Type>({
+export default function RangeFilter<Type>({
   table,
   columnName,
   type,

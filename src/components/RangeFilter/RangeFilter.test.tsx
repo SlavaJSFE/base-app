@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { RangeFilter } from './RangeFilter';
+import RangeFilter from './RangeFilter';
 import type { Table, Column } from '@tanstack/react-table';
 
 type TestRow = { sum_sales: number; date: string };

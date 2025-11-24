@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
-  flexRender,
   createColumnHelper,
   getPaginationRowModel,
   getSortedRowModel,
@@ -13,6 +12,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@ui/card';
 import type { SalesRecord } from '../types/sales';
 import Filters from './Filters';
 import Pagination from '@components/Pagination/Pagination';
+import DataTable from '@components/DataTable/DataTable';
 
 interface SalesTableProps {
   data: SalesRecord[];
@@ -101,38 +101,7 @@ export function SalesTable({ data, channelTypes, channelNames }: SalesTableProps
       </CardHeader>
       <CardContent>
         <Filters table={table} channelTypes={channelTypes} channelNames={channelNames} />
-        <table className="w-full text-sm border-collapse">
-          <thead className="border-b">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    onClick={header.column.getToggleSortingHandler()}
-                    className="text-left py-2 font-medium text-muted-foreground cursor-pointer select-none"
-                  >
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                    {{
-                      asc: ' ↑',
-                      desc: ' ↓',
-                    }[header.column.getIsSorted() as string] ?? null}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="border-b last:border-0">
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="py-2">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable table={table} withSorting />
         <Pagination table={table} />
       </CardContent>
     </Card>

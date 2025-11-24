@@ -48,7 +48,7 @@ npm run build
 # Run the built project
 npm start
 
-After starting the dev server, the app will be available at: http://localhost:3000
+After starting the dev server, the app will be available at: http://localhost:5173
 ```
 
 ## 🧪 Testing
